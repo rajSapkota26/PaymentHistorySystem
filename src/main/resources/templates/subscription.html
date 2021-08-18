@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+		crossorigin="anonymous" />
+	<title>home page</title>
+</head>
+
+<body class="bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:text="${title}"th:href="@{/}">home</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active"><a
+					class="btn btn-outline-primary btn-block" th:href="@{/register}">Create
+						Account<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item active ml-2"><a
+					class="btn btn-outline-primary btn-block" th:href="@{/login}">Login
+						Account<span class="sr-only">(current)</span>
+				</a></li>
+
+			</ul>
+
+		</div>
+	</nav><div class="container">
+
+		<div class="row my-4 mx-auto text-center">
+			<div class="col-md-8 offset-md-2">
+				<div class="card p-2 mx-auto my-auto">
+					<h2 class="text-center ">
+						<i class="fab fa-cc-amazon-pay fa-3x"></i>
+					</h2>
+					<h3>Make payment page</h3>
+					<!-- error message  -->
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}"
+							class="alert  text-center" role="alert">
+							<p th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+					<form th:action="@{/processPayment}" method="post" th:object="${payment}">
+						<div class="form-group">
+							<select class="form-control" name="amount" id="amt" onchange="myFunction()">
+								<option>select Amount</option>
+								<option value="5.00">$5</option>
+								<option value="25.00">$25</option>
+								<option value="50.00">$50</option>
+								<option value="100.00">$100</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="pur" name="subscriptionType" placeholder="Package">
+						</div>
+
+						<button type="submit" class="btn btn-primary">Pay</button>
+						<a class="btn btn-primary" th:href="@{/register}">Back to home</a>
+					</form>
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	<script>
+		function myFunction() {
+			var price = document.getElementById("amt").value;
+			if (price == 5.00) {
+				document.getElementById("pur").placeholder = '1-Day subscription';
+				document.getElementById("pur").setAttribute('value', "1-Day subscription");
+			}
+			if (price == 25.00) {
+				document.getElementById("pur").placeholder = '7-Day subscription';
+				document.getElementById("pur").setAttribute('value', "7-Day subscription");
+			}
+			if (price == 50.00) {
+				document.getElementById("pur").placeholder = '1-Month subscription';
+				document.getElementById("pur").setAttribute('value', "1-Month subscription");
+			}
+			if (price == 100.00) {
+				document.getElementById("pur").placeholder = '1-Year subscription';
+				document.getElementById("pur").setAttribute('value', "1-Year subscription");
+			}
+
+		}
+
+
+	</script>
+</body>
+
+</html>
